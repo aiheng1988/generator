@@ -311,7 +311,9 @@ public class MyBatisGenerator {
                 callback.checkCancel();
                 callback.startTask(getString(
                         "Progress.15", targetFile.getName())); //$NON-NLS-1$
-                writeFile(targetFile, source, gjf.getFileEncoding());
+                // 乱码修改
+                // writeFile(targetFile, source, gjf.getFileEncoding());
+                writeFile(targetFile, source, "UTF-8");
             } catch (ShellException e) {
                 warnings.add(e.getMessage());
             }

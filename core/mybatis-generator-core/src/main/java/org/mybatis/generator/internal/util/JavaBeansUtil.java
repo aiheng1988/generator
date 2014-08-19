@@ -204,11 +204,14 @@ public class JavaBeansUtil {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
+        // 获取到字段的comment
+        String comment =  introspectedColumn.getRemarks();
 
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
         field.setType(fqjt);
         field.setName(property);
+        field.setComment(comment);
         context.getCommentGenerator().addFieldComment(field,
                 introspectedTable, introspectedColumn);
 

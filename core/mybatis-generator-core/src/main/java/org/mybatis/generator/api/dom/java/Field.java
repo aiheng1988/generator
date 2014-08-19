@@ -23,6 +23,7 @@ import org.mybatis.generator.api.dom.OutputUtilities;
 public class Field extends JavaElement {
     private FullyQualifiedJavaType type;
     private String name;
+    private String comment;
     private String initializationString;
     private boolean isTransient;
     private boolean isVolatile;
@@ -32,23 +33,33 @@ public class Field extends JavaElement {
      */
     public Field() {
         // use a default name to avoid NPE
-        this("foo", FullyQualifiedJavaType.getIntInstance()); //$NON-NLS-1$
+        this("foo", FullyQualifiedJavaType.getIntInstance(), null); //$NON-NLS-1$
     }
     
-    public Field(String name, FullyQualifiedJavaType type) {
+    public Field(String name, FullyQualifiedJavaType type, String comment) {
         super();
         this.name = name;
         this.type = type;
+        this.comment = comment;
     }
     
     public Field(Field field) {
         super(field);
         this.type = field.type;
         this.name = field.name;
+        this.comment = field.comment;
         this.initializationString = field.initializationString;
     }
 
-    /**
+    public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	/**
      * @return Returns the name.
      */
     public String getName() {
@@ -98,6 +109,11 @@ public class Field extends JavaElement {
 
         addFormattedJavadoc(sb, indentLevel);
         addFormattedAnnotations(sb, indentLevel);
+        
+        // added by aiheng (加上数据字段的注释)
+        if(comment != null && !"".equals(comment)){
+        	addFormattedComments(sb, indentLevel, comment);
+        }
 
         OutputUtilities.javaIndent(sb, indentLevel);
         sb.append(getVisibility().getValue());

@@ -110,6 +110,19 @@ public abstract class JavaElement {
             OutputUtilities.newLine(sb);
         }
     }
+    
+    public void addFormattedComments(StringBuilder sb, int indentLevel, String comment) {
+    	OutputUtilities.javaIndent(sb, indentLevel);
+        sb.append("/**");
+        OutputUtilities.newLine(sb);
+        OutputUtilities.javaIndent(sb, indentLevel);
+        sb.append(" * ");
+        sb.append(comment);
+        OutputUtilities.newLine(sb);
+        OutputUtilities.javaIndent(sb, indentLevel);
+        sb.append(" */");
+        OutputUtilities.newLine(sb);
+    }
 
     public boolean isFinal() {
         return isFinal;
